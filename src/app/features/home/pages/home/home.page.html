@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h2>Bienvenido{{ currentUser ? ', ' + currentUser.name : '' }}</h2>
+
+  <p *ngIf="currentUser">
+    Correo: {{ currentUser.email }}<br>
+    Rol: {{ currentUser.role }}
+  </p>
+
+  <ion-button expand="block" color="danger" (click)="logout()">
+    Cerrar sesión
+  </ion-button>
+</ion-content>
