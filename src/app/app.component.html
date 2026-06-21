@@ -1,3 +1,50 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-split-pane contentId="main-content" when="md">
+
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>DriverApp</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <ion-list *ngIf="currentUser">
+          <ion-item lines="none" class="ion-margin-bottom">
+            <ion-label>
+              <h2>{{ currentUser.name }}</h2>
+              <p>{{ currentUser.email }}</p>
+            </ion-label>
+          </ion-item>
+
+          <ion-menu-toggle auto-hide="false" *ngFor="let item of visibleMenuItems">
+            <ion-item
+              [routerLink]="[item.url]"
+              routerDirection="root"
+              lines="none"
+              detail="false"
+              routerLinkActive="selected"
+            >
+              <ion-icon [name]="item.icon" slot="start"></ion-icon>
+              <ion-label>{{ item.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-item
+            button
+            lines="none"
+            detail="false"
+            (click)="confirmLogout()"
+            class="ion-margin-top"
+          >
+            <ion-icon name="log-out-outline" slot="start" color="danger"></ion-icon>
+            <ion-label color="danger">Cerrar sesión</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+
+  </ion-split-pane>
 </ion-app>
