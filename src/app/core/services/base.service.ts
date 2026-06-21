@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, OperatorFunction, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ERROR_MESSAGES, DEFAULT_ERROR } from '@shared/constants';
 import { LogService } from './log.service';
@@ -8,8 +8,8 @@ export abstract class BaseService {
 
   constructor(protected logService: LogService) {}
 
-  protected handleError<T>(serviceName: string) {
-    return (error: HttpErrorResponse): Observable<T> => {
+  protected handleError(serviceName: string) {
+    return (error: HttpErrorResponse): Observable<never> => {
       const message = ERROR_MESSAGES[error.status] ?? DEFAULT_ERROR;
 
       this.logService.error(
@@ -25,7 +25,7 @@ export abstract class BaseService {
     };
   }
 
-  protected catchAndHandle<T>(serviceName: string) {
-    return catchError(this.handleError<T>(serviceName));
+  protected catchAndHandle<T>(serviceName: string): OperatorFunction<T, T> {
+    return catchError(this.handleError(serviceName));
   }
 }

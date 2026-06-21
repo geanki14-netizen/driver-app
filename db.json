@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@test.com",
+      "password": "123456",
+      "name": "Administrador",
+      "role": "admin",
+      "token": "fake-jwt-admin-token"
+    },
+    {
+      "id": "2",
+      "email": "user@test.com",
+      "password": "123456",
+      "name": "Usuario de prueba",
+      "role": "user",
+      "token": "fake-jwt-user-token"
+    }
+  ],
+  "items": [
+    { "id": "1", "title": "Primer elemento", "description": "Descripción de ejemplo uno" },
+    { "id": "2", "title": "Segundo elemento", "description": "Descripción de ejemplo dos" },
+    { "id": "3", "title": "Tercer elemento", "description": "Descripción de ejemplo tres" }
+  ]
+}

@@ -4,10 +4,26 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpHandlerFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
+import { from, switchMap } from 'rxjs';
 import { AuthService } from './app/core/services/auth.service';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
+
+function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
+  const auth = inject(AuthService);
+
+  return from(auth.getToken()).pipe(
+    switchMap(token => {
+      if (token) {
+        req = req.clone({
+          setHeaders: { Authorization: `Bearer ${token}` }
+        });
+      }
+      return next(req);
+    })
+  );
+}
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -15,19 +31,7 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideHttpClient(
-      withInterceptors([
-        (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
-          const auth = inject(AuthService);
-          return auth.getToken().then(token => {
-            if (token) {
-              req = req.clone({
-                setHeaders: { Authorization: `Bearer ${token}` }
-              });
-            }
-            return next(req).toPromise();
-          }) as any;
-        }
-      ])
+      withInterceptors([authInterceptor])
     ),
   ],
 });

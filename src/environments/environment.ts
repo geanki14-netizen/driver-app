@@ -4,7 +4,7 @@
 export const environment = {
   production: false,
   envName: 'development',
-  apiUrl: 'https://api-dev.tuapp.com/v1',
+  apiUrl: 'http://localhost:3000',
   appVersion: '1.0.0',
   enableLogs: true,
   notificationSenderId: 'TU_SENDER_ID_DEV',

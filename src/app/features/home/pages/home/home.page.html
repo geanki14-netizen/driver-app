@@ -18,4 +18,17 @@
   <ion-button expand="block" color="danger" (click)="logout()">
     Cerrar sesión
   </ion-button>
+
+  <h3 class="ion-margin-top">Items desde la API</h3>
+
+  <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+
+  <ion-list *ngIf="!loading">
+    <ion-item *ngFor="let item of items">
+      <ion-label>
+        <h2>{{ item.title }}</h2>
+        <p>{{ item.description }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
