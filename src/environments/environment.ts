@@ -1,16 +1,11 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
+// Ambiente de DESARROLLO LOCAL
+// Se usa por defecto con: ionic serve / ng build (sin --configuration)
 
 export const environment = {
-  production: false
+  production: false,
+  envName: 'development',
+  apiUrl: 'https://api-dev.tuapp.com/v1',
+  appVersion: '1.0.0',
+  enableLogs: true,
+  notificationSenderId: 'TU_SENDER_ID_DEV',
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
