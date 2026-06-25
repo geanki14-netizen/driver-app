@@ -3,9 +3,12 @@ import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } 
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpHandlerFn, HttpRequest } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { ErrorHandler, inject, NgZone } from '@angular/core';
+import { ToastController } from '@ionic/angular/standalone';
 import { from, switchMap } from 'rxjs';
 import { AuthService } from './app/core/services/auth.service';
+import { LogService } from './app/core/services/log.service';
+import { GlobalErrorHandler } from './app/core/global-error-handler';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
@@ -28,6 +31,12 @@ function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {
+      provide: ErrorHandler,
+      useFactory: (log: LogService, toast: ToastController, zone: NgZone) =>
+        new GlobalErrorHandler(log, toast, zone),
+      deps: [LogService, ToastController, NgZone],
+    },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideHttpClient(

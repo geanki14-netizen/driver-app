@@ -46,15 +46,13 @@ export class HomePage implements OnInit {
     }
 
     this.loading = true;
-    this.api.get<Item[]>('items', {
-      _page: String(this.page),
-      _limit: String(this.pageSize),
-    }).subscribe({
+    this.api.get<Item[]>('items').subscribe({
       next: (data) => {
-        if (data.length < this.pageSize) {
+        const newItems = Array.isArray(data) ? data : (data as any).data ?? [];
+        if (newItems.length < this.pageSize) {
           this.hasMore = false;
         }
-        this.items = [...this.items, ...data];
+        this.items = reset ? newItems : [...this.items, ...newItems];
         this.loading = false;
         this.page++;
       },
