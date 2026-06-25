@@ -46,6 +46,6 @@ export class ApiService extends BaseService {
   delete<T>(endpoint: string): Observable<T> {
     return this.http
       .delete<T>(`${this.baseUrl}/${endpoint}`)
-      .pipe<T>(this.catchAndHandle<T>(`DELETE ${endpoint}`));
+      .pipe(this.catchAndHandle<T>(`DELETE ${endpoint}`));
   }
 }

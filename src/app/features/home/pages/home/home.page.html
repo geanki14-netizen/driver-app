@@ -8,6 +8,11 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+
+  <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <h2>Bienvenido{{ currentUser ? ', ' + currentUser.name : '' }}</h2>
 
   <p *ngIf="currentUser">
@@ -21,9 +26,9 @@
 
   <h3 class="ion-margin-top">Items desde la API</h3>
 
-  <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+  <ion-spinner *ngIf="loading && items.length === 0" name="crescent"></ion-spinner>
 
-  <ion-list *ngIf="!loading">
+  <ion-list *ngIf="items.length > 0">
     <ion-item *ngFor="let item of items">
       <ion-label>
         <h2>{{ item.title }}</h2>
@@ -31,4 +36,12 @@
       </ion-label>
     </ion-item>
   </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="onInfiniteScroll($event)">
+    <ion-infinite-scroll-content
+      loadingText="Cargando más..."
+      loadingSpinner="crescent">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>

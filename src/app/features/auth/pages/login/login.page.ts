@@ -7,8 +7,7 @@ import {
   FormBuilder,
   Validators
 } from '@angular/forms';
-import { AuthService } from '@core/services';
-import { User } from '@core/models';
+import { AuthService, AuthApiService } from '@core/services';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +25,7 @@ export class LoginPage {
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
+    private authApi: AuthApiService,
     private router: Router,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
@@ -39,29 +39,26 @@ export class LoginPage {
     });
     await loading.present();
 
-    try {
-      // TODO Día 8-9: reemplazar este mock por la llamada real a la API
-      const mockUser: User = {
-        id: '1',
-        email: this.form.value.email!,
-        name: 'Usuario de prueba',
-        role: 'user',
-        token: 'fake-jwt-token-123',
-      };
-
-      await this.auth.login(mockUser);
-      await loading.dismiss();
-      this.router.navigateByUrl('/home');
-
-    } catch (error) {
-      await loading.dismiss();
-      const toast = await this.toastCtrl.create({
-        message: 'No se pudo iniciar sesión. Verifica tus credenciales.',
-        duration: 3000,
-        color: 'danger',
-        position: 'top',
-      });
-      await toast.present();
-    }
+    this.authApi.login({
+      email: this.form.value.email!,
+      password: this.form.value.password!,
+    }).subscribe({
+      next: async (user) => {
+        await this.auth.login(user);
+        await loading.dismiss();
+        this.router.navigateByUrl('/home', { replaceUrl: true });
+      },
+      error: async (err) => {
+        await loading.dismiss();
+        const message = err?.message ?? 'No se pudo iniciar sesión.';
+        const toast = await this.toastCtrl.create({
+          message,
+          duration: 3000,
+          color: 'danger',
+          position: 'top',
+        });
+        await toast.present();
+      },
+    });
   }
 }
