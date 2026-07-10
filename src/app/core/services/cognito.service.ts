@@ -26,6 +26,11 @@ export class CognitoService {
 
   async login(email: string, password: string): Promise<SignInOutput> {
     try {
+      try {
+        await signOut({ global: true });
+      } catch {
+        // Ignorar error si no hay sesión activa
+      }
       const result = await signIn({ username: email, password });
       this.log.info('Cognito login exitoso:', email);
       return result;
