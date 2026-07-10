@@ -1,41 +1,77 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Home</ion-title>
+    <ion-title>Inicio</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="light">
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content style="--background:#F4F4F4;">
 
   <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <h2>Bienvenido{{ currentUser ? ', ' + currentUser.name : '' }}</h2>
+  <!-- Banner de bienvenida -->
+  <div style="background:#CC1E1E; padding:20px 20px 40px;">
+    <p style="color:rgba(255,255,255,0.8); font-size:13px; margin:0;">
+      Bienvenido
+    </p>
+    <h2 style="color:#ffffff; font-size:20px; font-weight:700; margin:2px 0 0;">
+      {{ currentUser?.name ?? 'Pasajero' }}
+    </h2>
+  </div>
 
-  <p *ngIf="currentUser">
-    Correo: {{ currentUser.email }}<br>
-    Rol: {{ currentUser.role }}
-  </p>
+  <!-- Contenido principal -->
+  <div style="padding:0 16px; margin-top:-20px;">
 
-  <ion-button expand="block" color="danger" (click)="logout()">
-    Cerrar sesión
-  </ion-button>
+    <!-- Card rápida -->
+    <div style="background:#ffffff; border-radius:16px; padding:20px;
+                box-shadow:0 4px 16px rgba(0,0,0,0.1); margin-bottom:20px;">
+      <h3 style="font-size:15px; font-weight:600; color:#1A1A1A; margin:0 0 16px;">
+        ¿A dónde viajas hoy?
+      </h3>
+      <div style="display:flex; gap:12px;">
+        <ion-button expand="block" style="flex:1; --background:#CC1E1E;
+          --border-radius:10px; height:44px; font-size:14px; font-weight:600;">
+          <ion-icon name="bus-outline" slot="start"></ion-icon>
+          Comprar tiquete
+        </ion-button>
+        <ion-button expand="block" fill="outline" style="flex:1;
+          --border-radius:10px; --color:#CC1E1E; --border-color:#CC1E1E;
+          height:44px; font-size:14px;">
+          <ion-icon name="time-outline" slot="start"></ion-icon>
+          Mis viajes
+        </ion-button>
+      </div>
+    </div>
 
-  <h3 class="ion-margin-top">Items desde la API</h3>
+    <!-- Lista de items -->
+    <h3 style="font-size:15px; font-weight:600; color:#1A1A1A; margin:0 0 12px;">
+      Información reciente
+    </h3>
 
-  <ion-spinner *ngIf="loading && items.length === 0" name="crescent"></ion-spinner>
+    <ion-spinner *ngIf="loading && items.length === 0"
+      name="crescent" color="primary"
+      style="display:block; margin:24px auto;">
+    </ion-spinner>
 
-  <ion-list *ngIf="items.length > 0">
-    <ion-item *ngFor="let item of items">
-      <ion-label>
-        <h2>{{ item.title }}</h2>
-        <p>{{ item.description }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+    <div *ngFor="let item of items" class="ro-card">
+      <h4 style="font-size:14px; font-weight:600; color:#1A1A1A; margin:0 0 4px;">
+        {{ item.title }}
+      </h4>
+      <p style="font-size:13px; color:#6B6B6B; margin:0;">
+        {{ item.description }}
+      </p>
+    </div>
+
+  </div>
 
   <ion-infinite-scroll (ionInfinite)="onInfiniteScroll($event)">
     <ion-infinite-scroll-content

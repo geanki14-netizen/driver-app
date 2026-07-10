@@ -7,6 +7,8 @@ import {
   FormBuilder,
   Validators
 } from '@angular/forms';
+import { addIcons } from 'ionicons';
+import { mailOutline, lockClosedOutline } from 'ionicons/icons';
 import { AuthService, CognitoService } from '@core/services';
 import { User } from '@core/models';
 
@@ -19,7 +21,7 @@ import { User } from '@core/models';
 export class LoginPage {
 
   form = this.fb.group({
-    email:    ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
@@ -30,7 +32,9 @@ export class LoginPage {
     private router: Router,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
-  ) {}
+  ) {
+    addIcons({ mailOutline, lockClosedOutline });
+  }
 
   async onSubmit(): Promise<void> {
     if (this.form.invalid) return;
@@ -49,13 +53,14 @@ export class LoginPage {
       if (result.isSignedIn) {
         const cognitoUser = await this.cognito.getCurrentCognitoUser();
         const token = await this.cognito.getToken();
+        const attributes = await this.cognito.getUserAttributes();
+        console.log('Atributos Cognito:', JSON.stringify(attributes));
 
-        // Construir el objeto User con los datos de Cognito
         const user: User = {
           id: cognitoUser?.userId ?? '',
           email: this.form.value.email!,
-          name: cognitoUser?.username ?? this.form.value.email!,
-          role: 'user', // Puedes leer esto de los atributos de Cognito
+          name: attributes?.['name'] ?? attributes?.['email'] ?? this.form.value.email!,
+          role: 'user',
           token: token ?? '',
         };
 
@@ -64,7 +69,6 @@ export class LoginPage {
         this.router.navigateByUrl('/home', { replaceUrl: true });
       } else {
         await loading.dismiss();
-        // Manejar casos como MFA, nueva contraseña requerida, etc.
         await this.showToast('Se requiere un paso adicional de verificación.');
       }
 

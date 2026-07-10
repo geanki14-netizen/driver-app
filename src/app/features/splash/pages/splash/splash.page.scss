@@ -1,29 +1,3 @@
-.splash-content {
-  --background: var(--ion-color-primary, #3880ff);
-}
-
-.splash-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-}
-
-.splash-icon {
-  font-size: 64px;
-  color: white;
-}
-
-.splash-title {
-  color: white;
-  font-size: 24px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.splash-spinner {
-  --color: white;
-  margin-top: 24px;
+ion-content {
+  --background: #CC1E1E;
 }

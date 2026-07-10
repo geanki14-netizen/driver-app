@@ -1,30 +1,70 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Iniciar sesión</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding" style="--background: #CC1E1E;">
 
-<ion-content class="ion-padding">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <!-- Header con logo -->
+  <div style="display:flex; flex-direction:column; align-items:center; padding: 48px 0 32px;">
+    <img src="assets/logo-rapido-ochoa.png"
+         alt="Rápido Ochoa"
+         style="width:140px; margin-bottom:12px;"
+         onerror="this.style.display='none'">
+    <h1 style="color:#ffffff; font-size:24px; font-weight:700; margin:0;">
+      Rápido Ochoa
+    </h1>
+    <p style="color:rgba(255,255,255,0.8); font-size:14px; margin:4px 0 0;">
+      Transportamos tus ilusiones
+    </p>
+  </div>
 
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" formControlName="email" />
-    </ion-item>
+  <!-- Card de login -->
+  <div style="background:#ffffff; border-radius:20px 20px 0 0;
+              padding:32px 24px; min-height:60vh;">
 
-    <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input type="password" formControlName="password" />
-    </ion-item>
+    <h2 style="font-size:20px; font-weight:600; color:#1A1A1A; margin:0 0 4px;">
+      Iniciar sesión
+    </h2>
+    <p style="font-size:14px; color:#6B6B6B; margin:0 0 24px;">
+      Ingresa con tu cuenta registrada
+    </p>
 
-    <ion-button expand="block" type="submit"
-      class="ion-margin-top" [disabled]="form.invalid">
-      Entrar
-    </ion-button>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-    <ion-button expand="block" fill="clear" routerLink="/auth/register">
-      Regístrate
-    </ion-button>
+      <div style="margin-bottom:16px;">
+        <label style="font-size:13px; font-weight:500; color:#1A1A1A; display:block; margin-bottom:6px;">
+          Correo electrónico
+        </label>
+        <ion-item style="--background:#F4F4F4; --border-radius:10px;
+                         --border-color:transparent; --padding-start:14px;">
+          <ion-icon name="mail-outline" slot="start" color="medium"></ion-icon>
+          <ion-input type="email" formControlName="email"
+                     placeholder="correo@ejemplo.com"></ion-input>
+        </ion-item>
+      </div>
 
-  </form>
+      <div style="margin-bottom:24px;">
+        <label style="font-size:13px; font-weight:500; color:#1A1A1A; display:block; margin-bottom:6px;">
+          Contraseña
+        </label>
+        <ion-item style="--background:#F4F4F4; --border-radius:10px;
+                         --border-color:transparent; --padding-start:14px;">
+          <ion-icon name="lock-closed-outline" slot="start" color="medium"></ion-icon>
+          <ion-input type="password" formControlName="password"
+                     placeholder="••••••••"></ion-input>
+        </ion-item>
+      </div>
+
+      <ion-button expand="block" type="submit"
+        style="--background:#CC1E1E; --border-radius:10px;
+               --box-shadow:0 4px 12px rgba(204,30,30,0.3);
+               height:52px; font-size:16px; font-weight:600;"
+        [disabled]="form.invalid">
+        Ingresar
+      </ion-button>
+
+      <ion-button expand="block" fill="clear" routerLink="/auth/register"
+        style="color:#CC1E1E; font-weight:500; margin-top:8px;">
+        ¿No tienes cuenta? Regístrate
+      </ion-button>
+
+    </form>
+  </div>
+
 </ion-content>

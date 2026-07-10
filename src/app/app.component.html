@@ -2,45 +2,75 @@
   <ion-split-pane contentId="main-content" when="md">
 
     <ion-menu contentId="main-content" type="overlay">
+
+      <!-- Header del menú -->
       <ion-header>
-        <ion-toolbar>
-          <ion-title>DriverApp</ion-title>
+        <ion-toolbar style="--background:#CC1E1E; --color:#ffffff; padding:8px 0;">
+          <div style="padding:16px; display:flex; align-items:center; gap:12px;">
+            <div style="width:44px; height:44px; border-radius:50%;
+                        background:rgba(255,255,255,0.2);
+                        display:flex; align-items:center; justify-content:center;">
+              <ion-icon name="person-outline" style="font-size:22px; color:#ffffff;"></ion-icon>
+            </div>
+            <div>
+              <p style="color:#ffffff; font-size:15px; font-weight:600; margin:0;">
+                {{ currentUser?.name ?? 'Usuario' }}
+              </p>
+              <p style="color:rgba(255,255,255,0.75); font-size:12px; margin:0;">
+                {{ currentUser?.email }}
+              </p>
+            </div>
+          </div>
         </ion-toolbar>
       </ion-header>
 
-      <ion-content>
-        <ion-list *ngIf="currentUser">
-          <ion-item lines="none" class="ion-margin-bottom">
-            <ion-label>
-              <h2>{{ currentUser.name }}</h2>
-              <p>{{ currentUser.email }}</p>
-            </ion-label>
-          </ion-item>
+      <ion-content style="--background:#1A1A1A;">
+
+        <ion-list style="background:transparent; padding:8px 0;">
 
           <ion-menu-toggle auto-hide="false" *ngFor="let item of visibleMenuItems">
             <ion-item
               [routerLink]="[item.url]"
               routerDirection="root"
+              routerLinkActive="selected"
               lines="none"
               detail="false"
-              routerLinkActive="selected"
-            >
-              <ion-icon [name]="item.icon" slot="start"></ion-icon>
-              <ion-label>{{ item.title }}</ion-label>
+              style="--background:transparent; --color:#ffffff;
+                     --border-radius:10px; margin:2px 8px;">
+              <ion-icon [name]="item.icon" slot="start"
+                        style="color:#ffffff; font-size:20px;"></ion-icon>
+              <ion-label style="font-size:14px; font-weight:500;">
+                {{ item.title }}
+              </ion-label>
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-item
-            button
-            lines="none"
-            detail="false"
-            (click)="confirmLogout()"
-            class="ion-margin-top"
-          >
-            <ion-icon name="log-out-outline" slot="start" color="danger"></ion-icon>
-            <ion-label color="danger">Cerrar sesión</ion-label>
-          </ion-item>
         </ion-list>
+
+        <!-- Separador -->
+        <div style="height:0.5px; background:rgba(255,255,255,0.1); margin:8px 16px;"></div>
+
+        <!-- Cerrar sesión -->
+        <ion-item button lines="none" detail="false"
+          (click)="confirmLogout()"
+          style="--background:transparent; --color:#FF6B6B;
+                 --border-radius:10px; margin:2px 8px;">
+          <ion-icon name="log-out-outline" slot="start"
+                    style="color:#FF6B6B; font-size:20px;"></ion-icon>
+          <ion-label style="font-size:14px; font-weight:500;">
+            Cerrar sesión
+          </ion-label>
+        </ion-item>
+
+        <!-- Logo en el fondo del menú -->
+        <div style="position:absolute; bottom:32px; left:0; right:0;
+                    display:flex; flex-direction:column; align-items:center; gap:8px;">
+          <div style="width:50px; height:2px; background:#CC1E1E; border-radius:99px;"></div>
+          <p style="color:rgba(255,255,255,0.3); font-size:11px; margin:0;">
+            Rápido Ochoa v1.0.0
+          </p>
+        </div>
+
       </ion-content>
     </ion-menu>
 

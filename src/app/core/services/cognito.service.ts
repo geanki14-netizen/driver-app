@@ -71,4 +71,14 @@ export class CognitoService {
     const token = await this.getToken();
     return !!token;
   }
+
+  async getUserAttributes(): Promise<Record<string, string> | null> {
+  try {
+    const { fetchUserAttributes } = await import('aws-amplify/auth');
+    const attributes = await fetchUserAttributes();
+    return attributes as Record<string, string>;
+  } catch {
+    return null;
+  }
+}
 }

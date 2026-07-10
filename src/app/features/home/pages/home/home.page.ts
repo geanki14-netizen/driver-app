@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { IonicModule, InfiniteScrollCustomEvent, RefresherCustomEvent } from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import { busOutline, timeOutline, notificationsOutline } from 'ionicons/icons';
 import { AuthService, ApiService } from '@core/services';
 
 interface Item {
@@ -28,7 +30,9 @@ export class HomePage implements OnInit {
     private auth: AuthService,
     private router: Router,
     private api: ApiService,
-  ) {}
+  ) {
+    addIcons({ busOutline, timeOutline, notificationsOutline });
+  }
 
   get currentUser() {
     return this.auth.getCurrentUser();
