@@ -1,14 +1,94 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Panel de Administración</ion-title>
+    <ion-title>Administración</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-text color="medium">
-    <p>Esta sección solo es visible para usuarios con rol <strong>admin</strong>.</p>
-  </ion-text>
+<ion-content style="--background:#F4F4F4;">
+
+  <!-- Banner -->
+  <div style="background:#1A1A1A; padding:24px 20px; display:flex;
+              align-items:center; gap:14px;">
+    <div style="width:48px; height:48px; border-radius:12px;
+                background:#CC1E1E; display:flex; align-items:center;
+                justify-content:center; flex-shrink:0;">
+      <ion-icon name="shield-checkmark-outline"
+                style="font-size:24px; color:#ffffff;"></ion-icon>
+    </div>
+    <div>
+      <h2 style="color:#ffffff; font-size:18px; font-weight:700; margin:0 0 2px;">
+        Panel de Administración
+      </h2>
+      <p style="color:rgba(255,255,255,0.6); font-size:12px; margin:0;">
+        Acceso exclusivo para administradores
+      </p>
+    </div>
+  </div>
+
+  <div style="padding:16px;">
+
+    <!-- Card de acceso restringido -->
+    <div style="background:#ffffff; border-radius:16px; padding:20px;
+                box-shadow:0 2px 12px rgba(0,0,0,0.08); margin-bottom:16px;
+                border-left:4px solid #CC1E1E;">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+        <ion-icon name="lock-closed-outline"
+                  style="font-size:18px; color:#CC1E1E;"></ion-icon>
+        <h3 style="font-size:15px; font-weight:600; color:#1A1A1A; margin:0;">
+          Zona restringida
+        </h3>
+      </div>
+      <p style="font-size:13px; color:#6B6B6B; margin:0; line-height:1.6;">
+        Esta sección solo es visible para usuarios con rol
+        <strong style="color:#CC1E1E;">administrador</strong>.
+        Los usuarios regulares son redirigidos automáticamente.
+      </p>
+    </div>
+
+    <!-- Métricas placeholder -->
+    <h3 style="font-size:14px; font-weight:600; color:#1A1A1A; margin:0 0 12px;">
+      Resumen del sistema
+    </h3>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
+
+      <div style="background:#ffffff; border-radius:14px; padding:16px;
+                  box-shadow:0 2px 8px rgba(0,0,0,0.06); text-align:center;">
+        <ion-icon name="people-outline"
+                  style="font-size:28px; color:#CC1E1E;"></ion-icon>
+        <p style="font-size:24px; font-weight:700; color:#1A1A1A; margin:4px 0 2px;">—</p>
+        <p style="font-size:12px; color:#6B6B6B; margin:0;">Usuarios activos</p>
+      </div>
+
+      <div style="background:#ffffff; border-radius:14px; padding:16px;
+                  box-shadow:0 2px 8px rgba(0,0,0,0.06); text-align:center;">
+        <ion-icon name="bus-outline"
+                  style="font-size:28px; color:#1A7A2E;"></ion-icon>
+        <p style="font-size:24px; font-weight:700; color:#1A1A1A; margin:4px 0 2px;">—</p>
+        <p style="font-size:12px; color:#6B6B6B; margin:0;">Viajes hoy</p>
+      </div>
+
+      <div style="background:#ffffff; border-radius:14px; padding:16px;
+                  box-shadow:0 2px 8px rgba(0,0,0,0.06); text-align:center;">
+        <ion-icon name="ticket-outline"
+                  style="font-size:28px; color:#185FA5;"></ion-icon>
+        <p style="font-size:24px; font-weight:700; color:#1A1A1A; margin:4px 0 2px;">—</p>
+        <p style="font-size:12px; color:#6B6B6B; margin:0;">Tiquetes vendidos</p>
+      </div>
+
+      <div style="background:#ffffff; border-radius:14px; padding:16px;
+                  box-shadow:0 2px 8px rgba(0,0,0,0.06); text-align:center;">
+        <ion-icon name="notifications-outline"
+                  style="font-size:28px; color:#E65100;"></ion-icon>
+        <p style="font-size:24px; font-weight:700; color:#1A1A1A; margin:4px 0 2px;">—</p>
+        <p style="font-size:12px; color:#6B6B6B; margin:0;">Notificaciones</p>
+      </div>
+
+    </div>
+
+  </div>
+
 </ion-content>
