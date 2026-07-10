@@ -1,73 +1,133 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/auth/login"></ion-back-button>
+      <ion-back-button defaultHref="/auth/login" color="light"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ step === 'register' ? 'Crear cuenta' : 'Verificar email' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content style="--background:#F4F4F4;">
 
   <!-- PASO 1: Registro -->
-  <form *ngIf="step === 'register'" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+  <div *ngIf="step === 'register'" style="padding:24px 16px;">
 
-    <ion-item>
-      <ion-label position="floating">Nombre completo</ion-label>
-      <ion-input type="text" formControlName="name"></ion-input>
-    </ion-item>
+    <div style="background:#ffffff; border-radius:16px; padding:24px;
+                box-shadow:0 2px 12px rgba(0,0,0,0.08);">
 
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" formControlName="email"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Confirmar contraseña</ion-label>
-      <ion-input type="password" formControlName="confirmPassword"></ion-input>
-    </ion-item>
-
-    <p *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.touched"
-       style="color:red;font-size:12px;padding:8px">
-      Las contraseñas no coinciden.
-    </p>
-
-    <ion-button expand="block" type="submit"
-      class="ion-margin-top" [disabled]="registerForm.invalid">
-      Crear cuenta
-    </ion-button>
-
-    <ion-button expand="block" fill="clear" (click)="goToLogin()">
-      ¿Ya tienes cuenta? Inicia sesión
-    </ion-button>
-
-  </form>
-
-  <!-- PASO 2: Confirmación de código -->
-  <div *ngIf="step === 'confirm'">
-    <ion-text color="medium">
-      <p class="ion-margin-bottom">
-        Enviamos un código de 6 dígitos a <strong>{{ email }}</strong>.
-        Ingrésalo para verificar tu cuenta.
+      <h2 style="font-size:20px; font-weight:700; color:#1A1A1A; margin:0 0 4px;">
+        Crea tu cuenta
+      </h2>
+      <p style="font-size:13px; color:#6B6B6B; margin:0 0 24px;">
+        Regístrate para viajar con Rápido Ochoa
       </p>
-    </ion-text>
 
-    <form [formGroup]="confirmForm" (ngSubmit)="onConfirm()">
-      <ion-item>
-        <ion-label position="floating">Código de verificación</ion-label>
-        <ion-input type="text" inputmode="numeric" formControlName="code" maxlength="6"></ion-input>
-      </ion-item>
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
 
-      <ion-button expand="block" type="submit"
-        class="ion-margin-top" [disabled]="confirmForm.invalid">
-        Verificar cuenta
-      </ion-button>
-    </form>
+        <div style="margin-bottom:14px;">
+          <label style="font-size:13px; font-weight:500; color:#1A1A1A;
+                        display:block; margin-bottom:6px;">Nombre completo</label>
+          <ion-item style="--background:#F4F4F4; --border-radius:10px;
+                           --border-color:transparent; --padding-start:14px;">
+            <ion-icon name="person-outline" slot="start" color="medium"></ion-icon>
+            <ion-input type="text" formControlName="name"
+                       placeholder="Tu nombre completo"></ion-input>
+          </ion-item>
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <label style="font-size:13px; font-weight:500; color:#1A1A1A;
+                        display:block; margin-bottom:6px;">Correo electrónico</label>
+          <ion-item style="--background:#F4F4F4; --border-radius:10px;
+                           --border-color:transparent; --padding-start:14px;">
+            <ion-icon name="mail-outline" slot="start" color="medium"></ion-icon>
+            <ion-input type="email" formControlName="email"
+                       placeholder="correo@ejemplo.com"></ion-input>
+          </ion-item>
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <label style="font-size:13px; font-weight:500; color:#1A1A1A;
+                        display:block; margin-bottom:6px;">Contraseña</label>
+          <ion-item style="--background:#F4F4F4; --border-radius:10px;
+                           --border-color:transparent; --padding-start:14px;">
+            <ion-icon name="lock-closed-outline" slot="start" color="medium"></ion-icon>
+            <ion-input type="password" formControlName="password"
+                       placeholder="Mínimo 8 caracteres"></ion-input>
+          </ion-item>
+        </div>
+
+        <div style="margin-bottom:20px;">
+          <label style="font-size:13px; font-weight:500; color:#1A1A1A;
+                        display:block; margin-bottom:6px;">Confirmar contraseña</label>
+          <ion-item style="--background:#F4F4F4; --border-radius:10px;
+                           --border-color:transparent; --padding-start:14px;">
+            <ion-icon name="lock-closed-outline" slot="start" color="medium"></ion-icon>
+            <ion-input type="password" formControlName="confirmPassword"
+                       placeholder="Repite tu contraseña"></ion-input>
+          </ion-item>
+          <p *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.touched"
+             style="color:#CC1E1E; font-size:12px; padding:6px 0 0 4px; margin:0;">
+            Las contraseñas no coinciden.
+          </p>
+        </div>
+
+        <ion-button expand="block" type="submit"
+          style="--background:#CC1E1E; --border-radius:10px;
+                 --box-shadow:0 4px 12px rgba(204,30,30,0.3);
+                 height:52px; font-size:16px; font-weight:600;"
+          [disabled]="registerForm.invalid">
+          Crear cuenta
+        </ion-button>
+
+        <ion-button expand="block" fill="clear" (click)="goToLogin()"
+          style="color:#CC1E1E; font-weight:500; margin-top:8px;">
+          ¿Ya tienes cuenta? Inicia sesión
+        </ion-button>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- PASO 2: Verificación -->
+  <div *ngIf="step === 'confirm'" style="padding:24px 16px;">
+
+    <div style="background:#ffffff; border-radius:16px; padding:24px;
+                box-shadow:0 2px 12px rgba(0,0,0,0.08); text-align:center;">
+
+      <div style="width:64px; height:64px; border-radius:50%; background:#FFEBEE;
+                  display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+        <ion-icon name="mail-outline"
+                  style="font-size:28px; color:#CC1E1E;"></ion-icon>
+      </div>
+
+      <h2 style="font-size:20px; font-weight:700; color:#1A1A1A; margin:0 0 8px;">
+        Verifica tu email
+      </h2>
+      <p style="font-size:13px; color:#6B6B6B; margin:0 0 24px; line-height:1.6;">
+        Enviamos un código de 6 dígitos a<br>
+        <strong style="color:#1A1A1A;">{{ email }}</strong>
+      </p>
+
+      <form [formGroup]="confirmForm" (ngSubmit)="onConfirm()">
+        <ion-item style="--background:#F4F4F4; --border-radius:10px;
+                         --border-color:transparent; --padding-start:14px;
+                         margin-bottom:20px;">
+          <ion-input type="text" inputmode="numeric" formControlName="code"
+                     maxlength="6" placeholder="000000"
+                     style="text-align:center; font-size:24px; font-weight:700;
+                            letter-spacing:8px;"></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" type="submit"
+          style="--background:#CC1E1E; --border-radius:10px;
+                 --box-shadow:0 4px 12px rgba(204,30,30,0.3);
+                 height:52px; font-size:16px; font-weight:600;"
+          [disabled]="confirmForm.invalid">
+          Verificar cuenta
+        </ion-button>
+      </form>
+    </div>
   </div>
 
 </ion-content>

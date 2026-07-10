@@ -11,6 +11,8 @@ import {
 } from '@angular/forms';
 import { signUp, confirmSignUp } from 'aws-amplify/auth';
 import { LogService } from '@core/services';
+import { addIcons } from 'ionicons';
+import { personOutline, mailOutline, lockClosedOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-register',
@@ -34,13 +36,15 @@ export class RegisterPage {
     code: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
   });
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private loadingCtrl: LoadingController,
-    private toastCtrl: ToastController,
-    private log: LogService,
-  ) {}
+ constructor(
+  private fb: FormBuilder,
+  private router: Router,
+  private loadingCtrl: LoadingController,
+  private toastCtrl: ToastController,
+  private log: LogService,
+) {
+  addIcons({ personOutline, mailOutline, lockClosedOutline });
+}
 
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { AuthService } from '@core/services';
+import { addIcons } from 'ionicons';
+import { personOutline, mailOutline, shieldCheckmarkOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +13,9 @@ import { AuthService } from '@core/services';
 })
 export class ProfilePage {
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService) {
+  addIcons({ personOutline, mailOutline, shieldCheckmarkOutline });
+}
 
   get currentUser() {
     return this.auth.getCurrentUser();
