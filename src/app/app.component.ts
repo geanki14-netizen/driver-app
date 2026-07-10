@@ -8,7 +8,8 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { homeOutline, personOutline, shieldCheckmarkOutline, logOutOutline } from 'ionicons/icons';
-import { AuthService } from './core/services/auth.service';
+import { AuthService, NotificationService } from './core/services';
+import { Capacitor } from '@capacitor/core';
 
 interface MenuItem {
   title: string;
@@ -23,10 +24,10 @@ interface MenuItem {
   styleUrls: ['app.component.scss'],
   standalone: true,
   imports: [
-  CommonModule, IonApp, IonSplitPane, IonMenu, IonHeader, IonToolbar,
-  IonTitle, IonContent, IonList, IonItem, IonIcon, IonLabel,
-  IonRouterOutlet, IonMenuToggle, RouterLink, RouterLinkActive,
-],
+    CommonModule, IonApp, IonSplitPane, IonMenu, IonHeader, IonToolbar,
+    IonTitle, IonContent, IonList, IonItem, IonIcon, IonLabel,
+    IonRouterOutlet, IonMenuToggle, RouterLink, RouterLinkActive,
+  ],
 })
 export class AppComponent implements OnInit {
 
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
+    private notifications: NotificationService,
     private router: Router,
     private alertCtrl: AlertController,
   ) {
@@ -46,6 +48,11 @@ export class AppComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.auth.init();
+
+    // Push notifications solo en dispositivo nativo (no en browser)
+    if (Capacitor.isNativePlatform()) {
+      await this.notifications.init();
+    }
   }
 
   get currentUser() {

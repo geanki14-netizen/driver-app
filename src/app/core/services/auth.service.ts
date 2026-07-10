@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '@core/models';
 import { StorageService } from './storage.service';
+import { CognitoService } from './cognito.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -9,27 +10,36 @@ export class AuthService {
   private userSubject = new BehaviorSubject<User | null>(null);
   currentUser$: Observable<User | null> = this.userSubject.asObservable();
 
-  constructor(private storage: StorageService) {}
+  constructor(
+    private storage: StorageService,
+    private cognito: CognitoService,
+  ) {}
 
   async init(): Promise<void> {
-    const user = await this.storage.get<User>('auth_user');
-    this.userSubject.next(user);
+    // Verificar si hay sesión activa en Cognito
+    const isAuth = await this.cognito.isAuthenticated();
+    if (isAuth) {
+      const user = await this.storage.get<User>('auth_user');
+      this.userSubject.next(user);
+    } else {
+      this.userSubject.next(null);
+    }
   }
 
   async login(user: User): Promise<void> {
-    await this.storage.set('auth_token', user.token);
     await this.storage.set('auth_user', user);
     this.userSubject.next(user);
   }
 
   async logout(): Promise<void> {
-    await this.storage.remove('auth_token');
+    await this.cognito.logout();
     await this.storage.remove('auth_user');
     this.userSubject.next(null);
   }
 
   async getToken(): Promise<string | null> {
-    return this.storage.get<string>('auth_token');
+    // Siempre obtener el token fresco de Cognito
+    return this.cognito.getToken();
   }
 
   isAuthenticated(): boolean {
