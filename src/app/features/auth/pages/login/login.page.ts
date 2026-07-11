@@ -54,7 +54,7 @@ export class LoginPage {
         const cognitoUser = await this.cognito.getCurrentCognitoUser();
         const token = await this.cognito.getToken();
         const attributes = await this.cognito.getUserAttributes();
-        console.log('Atributos Cognito:', JSON.stringify(attributes));
+        
 
         const user: User = {
           id: cognitoUser?.userId ?? '',
