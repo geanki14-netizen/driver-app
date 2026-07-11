@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   PushNotifications,
@@ -10,11 +10,14 @@ import { LogService } from './log.service';
 
 @Injectable({ providedIn: 'root' })
 export class NotificationService {
+  private router = inject(Router);
+  private log = inject(LogService);
 
-  constructor(
-    private router: Router,
-    private log: LogService,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+
+  constructor() {}
 
   async init(): Promise<void> {
     // Verificar y solicitar permisos

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { IonicModule, LoadingController, ToastController } from '@ionic/angular';
@@ -21,6 +21,12 @@ import { personOutline, mailOutline, lockClosedOutline } from 'ionicons/icons';
   imports: [CommonModule, IonicModule, ReactiveFormsModule],
 })
 export class RegisterPage {
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private loadingCtrl = inject(LoadingController);
+  private toastCtrl = inject(ToastController);
+  private log = inject(LogService);
+
 
   step: 'register' | 'confirm' = 'register';
   email = '';
@@ -36,13 +42,10 @@ export class RegisterPage {
     code: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
   });
 
- constructor(
-  private fb: FormBuilder,
-  private router: Router,
-  private loadingCtrl: LoadingController,
-  private toastCtrl: ToastController,
-  private log: LogService,
-) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+ constructor() {
   addIcons({ personOutline, mailOutline, lockClosedOutline });
 }
 

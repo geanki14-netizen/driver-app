@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 import {
   signIn,
@@ -12,8 +12,13 @@ import { LogService } from './log.service';
 
 @Injectable({ providedIn: 'root' })
 export class CognitoService {
+  private log = inject(LogService);
 
-  constructor(private log: LogService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+
+  constructor() {
     Amplify.configure({
       Auth: {
         Cognito: {

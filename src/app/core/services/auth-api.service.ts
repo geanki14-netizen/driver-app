@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -14,13 +14,17 @@ export interface LoginCredentials {
 
 @Injectable({ providedIn: 'root' })
 export class AuthApiService extends BaseService {
+  private http = inject(HttpClient);
+
 
   private baseUrl = environment.apiUrl;
 
-  constructor(
-    private http: HttpClient,
-    logService: LogService,
-  ) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
+    const logService = inject(LogService);
+
     super(logService);
   }
 

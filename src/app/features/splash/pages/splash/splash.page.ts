@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
@@ -12,11 +12,14 @@ import { AuthService } from '@core/services';
     imports: [CommonModule, IonicModule],
 })
 export class SplashPage implements OnInit {
+    private auth = inject(AuthService);
+    private router = inject(Router);
 
-    constructor(
-        private auth: AuthService,
-        private router: Router,
-    ) { }
+    /** Inserted by Angular inject() migration for backwards compatibility */
+    constructor(...args: unknown[]);
+
+
+    constructor() { }
 
     async ngOnInit(): Promise<void> {
         // Pequeña pausa para mostrar el splash personalizado

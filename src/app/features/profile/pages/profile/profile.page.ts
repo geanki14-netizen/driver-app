@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { AuthService } from '@core/services';
@@ -12,8 +12,13 @@ import { personOutline, mailOutline, shieldCheckmarkOutline } from 'ionicons/ico
   imports: [CommonModule, IonicModule],
 })
 export class ProfilePage {
+  private auth = inject(AuthService);
 
-  constructor(private auth: AuthService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+
+  constructor() {
   addIcons({ personOutline, mailOutline, shieldCheckmarkOutline });
 }
 

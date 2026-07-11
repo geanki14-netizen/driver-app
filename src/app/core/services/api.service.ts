@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
@@ -7,13 +7,17 @@ import { LogService } from './log.service';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService extends BaseService {
+  private http = inject(HttpClient);
+
 
   private baseUrl = environment.apiUrl;
 
-  constructor(
-    private http: HttpClient,
-    logService: LogService,
-  ) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
+    const logService = inject(LogService);
+
     super(logService);
   }
 

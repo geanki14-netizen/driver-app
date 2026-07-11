@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { IonicModule, InfiniteScrollCustomEvent, RefresherCustomEvent } from '@ionic/angular';
@@ -19,6 +19,10 @@ interface Item {
   imports: [CommonModule, IonicModule],
 })
 export class HomePage implements OnInit {
+  private auth = inject(AuthService);
+  private router = inject(Router);
+  private api = inject(ApiService);
+
 
   items: Item[] = [];
   loading = false;
@@ -26,11 +30,10 @@ export class HomePage implements OnInit {
   pageSize = 2;
   hasMore = true;
 
-  constructor(
-    private auth: AuthService,
-    private router: Router,
-    private api: ApiService,
-  ) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     addIcons({ busOutline, timeOutline, notificationsOutline });
   }
 

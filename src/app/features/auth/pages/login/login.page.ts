@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { IonicModule, LoadingController, ToastController } from '@ionic/angular';
@@ -19,20 +19,23 @@ import { User } from '@core/models';
   imports: [CommonModule, IonicModule, ReactiveFormsModule, RouterLink],
 })
 export class LoginPage {
+  private fb = inject(FormBuilder);
+  private auth = inject(AuthService);
+  private cognito = inject(CognitoService);
+  private router = inject(Router);
+  private loadingCtrl = inject(LoadingController);
+  private toastCtrl = inject(ToastController);
+
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
-  constructor(
-    private fb: FormBuilder,
-    private auth: AuthService,
-    private cognito: CognitoService,
-    private router: Router,
-    private loadingCtrl: LoadingController,
-    private toastCtrl: ToastController,
-  ) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     addIcons({ mailOutline, lockClosedOutline });
   }
 

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import {
-  IonApp, IonSplitPane, IonMenu, IonHeader, IonToolbar, IonTitle,
+  IonApp, IonSplitPane, IonMenu, IonHeader, IonToolbar,
   IonContent, IonList, IonItem, IonIcon, IonLabel, IonRouterOutlet,
   IonMenuToggle, AlertController
 } from '@ionic/angular/standalone';
@@ -25,11 +25,16 @@ interface MenuItem {
   standalone: true,
   imports: [
     CommonModule, IonApp, IonSplitPane, IonMenu, IonHeader, IonToolbar,
-    IonTitle, IonContent, IonList, IonItem, IonIcon, IonLabel,
+    IonContent, IonList, IonItem, IonIcon, IonLabel,
     IonRouterOutlet, IonMenuToggle, RouterLink, RouterLinkActive,
   ],
 })
 export class AppComponent implements OnInit {
+  private auth = inject(AuthService);
+  private notifications = inject(NotificationService);
+  private router = inject(Router);
+  private alertCtrl = inject(AlertController);
+
 
   menuItems: MenuItem[] = [
     { title: 'Inicio', url: '/home', icon: 'home-outline' },
@@ -37,12 +42,10 @@ export class AppComponent implements OnInit {
     { title: 'Administración', url: '/admin', icon: 'shield-checkmark-outline', adminOnly: true },
   ];
 
-  constructor(
-    private auth: AuthService,
-    private notifications: NotificationService,
-    private router: Router,
-    private alertCtrl: AlertController,
-  ) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     addIcons({ homeOutline, personOutline, shieldCheckmarkOutline, logOutOutline });
   }
 

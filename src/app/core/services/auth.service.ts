@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '@core/models';
 import { StorageService } from './storage.service';
@@ -6,14 +6,17 @@ import { CognitoService } from './cognito.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private storage = inject(StorageService);
+  private cognito = inject(CognitoService);
+
 
   private userSubject = new BehaviorSubject<User | null>(null);
   currentUser$: Observable<User | null> = this.userSubject.asObservable();
 
-  constructor(
-    private storage: StorageService,
-    private cognito: CognitoService,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   async init(): Promise<void> {
     // Verificar si hay sesión activa en Cognito

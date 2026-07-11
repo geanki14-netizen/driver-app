@@ -1,16 +1,19 @@
-import { ErrorHandler, Injectable, NgZone } from '@angular/core';
+import { ErrorHandler, Injectable, NgZone, inject } from '@angular/core';
 import { ToastController } from '@ionic/angular/standalone';
 import { LogService } from './services/log.service';
 import { DEFAULT_ERROR } from '@shared/constants';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
+  private logService = inject(LogService);
+  private toastCtrl = inject(ToastController);
+  private zone = inject(NgZone);
 
-  constructor(
-    private logService: LogService,
-    private toastCtrl: ToastController,
-    private zone: NgZone,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+
+  constructor() {}
 
   handleError(error: unknown): void {
     const message = this.extractMessage(error);
