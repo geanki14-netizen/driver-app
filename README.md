@@ -1,6 +1,7 @@
- # Rápido Ochoa App
+ # DriverApp — Rápido Ochoa
 
-App móvil base construida con **Ionic + Angular + Capacitor** para Rápido Ochoa.
+App móvil base construida con **Ionic + Angular + Capacitor** para **Rápido Ochoa**.
+Nombre técnico del proyecto: `DriverApp`
 Sirve como punto de partida para el desarrollo de nuevas funcionalidades.
 
 > Transportamos tus ilusiones 🚌
