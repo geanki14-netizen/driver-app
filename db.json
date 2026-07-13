@@ -21,5 +21,14 @@
     { "id": "1", "title": "Primer elemento", "description": "Descripción de ejemplo uno" },
     { "id": "2", "title": "Segundo elemento", "description": "Descripción de ejemplo dos" },
     { "id": "3", "title": "Tercer elemento", "description": "Descripción de ejemplo tres" }
+  ],
+  "app-config": [
+    {
+      "id": "1",
+      "minVersion": "1.0.0",
+      "currentVersion": "1.0.0",
+      "androidUrl": "https://play.google.com/store/apps/details?id=io.ionic.starter",
+      "iosUrl": "https://apps.apple.com/app/id000000000"
+    }
   ]
 }
